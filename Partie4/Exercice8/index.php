@@ -19,3 +19,16 @@
         ?>
     </body>
 </html>
+<VirtualHost *:80>
+      ServerName www.part5
+      ServerAlias part5
+      DocumentRoot /home/mynewuser/phpExercice/Partie5
+      <Directory /home/mynewuser/phpExercice/Partie5/>
+        AllowOverride All
+        Require all granted
+      </Directory>
+      ErrorLog /var/log/apache2/part5-error.log
+      LogLevel warn
+      CustomLog  /var/log/apache2/part5-access.log combined
+      ServerSignature Off
+    </VirtualHost>
