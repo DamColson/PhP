@@ -6,11 +6,12 @@
     </head>
     <body>
         <?php
-        for($i = 1;$i<11;$i++){
+        $id = $_GET;
+        foreach($id as $key=>$value) :
             ?>
-        <p><a href=<?='Exercice'.$i.'/index.php'?>><?= 'Exercice '.$i?></a></p>
+        <p><?= $key.' : '.$value;?></p>
         <?php
-        }
-        ?>
+        endforeach;
+?>
     </body>
 </html>

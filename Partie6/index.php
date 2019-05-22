@@ -6,9 +6,9 @@
     </head>
     <body>
         <?php
-        for($i = 1;$i<11;$i++){
+        for($i = 1;$i<7;$i++){
             ?>
-        <p><a href=<?='Exercice'.$i.'/index.php'?>><?= 'Exercice '.$i?></a></p>
+        <p><a href=<?='Exercice'.$i.'/test.php'?>><?= 'Exercice '.$i?></a></p>
         <?php
         }
         ?>
