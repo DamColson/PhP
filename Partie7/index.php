@@ -6,8 +6,11 @@
     </head>
     <body>
         <?php
-        $department = [76=>'Seine-Maritime',27=>'Eure',50=>'Manche',61=>'Orne',14=>'Calvados'];
+        for($i = 1;$i<9;$i++){
+            ?>
+        <p><a href=<?='Exercice'.$i.'/index.php'?>><?= 'Exercice '.$i?></a></p>
+        <?php
+        }
         ?>
-        <p><?= $department[76] ?></p>
     </body>
 </html>

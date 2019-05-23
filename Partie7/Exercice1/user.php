@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
     <head>
         <title>ExercicePhp1</title>
@@ -6,9 +5,9 @@
     </head>
     <body>
         <?php
-        $campus = $_GET;
-        if(isset($campus['building']) && isset($campus['room'])):
-            foreach($campus as $key=>$value):
+        $form = $_GET;
+        if(isset($form['lastName']) && isset($form['firstName'])):
+            foreach($form as $key=>$value):
             ?>
         <p><?= $key.' : '.$value ?></p>
         <?php
