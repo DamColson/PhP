@@ -8,20 +8,26 @@
         $form = $_POST;
         
         if(isset($form['lastName']) && isset($form['firstName']) && isset($form['gender'])):
-            var_dump($_FILES);
-            var_dump($form);
+ 
             if(isset($_FILES['myFile']) && $_FILES['myFile']['error'] == 0) :  //Si le fichier a bien été envoyé et qu'il n'y a pas d'erreur alors :
-                if ($form['myFile']['size'] <= 1000000): // Si la taille du fichier est inférieure ou égale à 1 000 000 d'octet alors : 
-                    $fileInfos = new SplFileInfo($form['myFile']);
+                if ($_FILES['myFile']['size'] <= 2000000): // Si la taille du fichier est inférieure ou égale à 2 000 000 d'octet alors : 
+                    $fileInfos = new SplFileInfo($_FILES['myFile']['name']);
                     $extension = pathinfo($fileInfos->getFilename(), PATHINFO_EXTENSION);
+                    $name = pathinfo($fileInfos->getFilename(), PATHINFO_FILENAME);
                     $validExtensions = ['jpg', 'jpeg', 'gif', 'png'];
                     if (in_array($extension, $validExtensions)): // si l'extension du fichier apparait dans le tableau des extensions autorisées alors : 
                         move_uploaded_file($form['myFile']['tmp_name'], 'uploads/' . basename($form['myFile']['name'])); // transfert du fichier depuis le stockage temporaire ou il se trouvait vers un stockage permanent
                         foreach($form as $key=>$value):
              ?>
-                        <p>////<?= $key.' : '.$value ?></p>
+                        <p><?= $key.' : '.$value ?></p>
+                        
             <?php
                         endforeach;
+                        ?>
+                        <p><?= 'filename : '.$name ?></p>
+                        <?php
+                        echo 'extension : '.$extension;
+                        
                 else:
                     echo 'Erreur à l\'étape de vérification des extensions.';
                 
