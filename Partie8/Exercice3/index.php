@@ -1,6 +1,6 @@
 <?php
 foreach($_POST as $key=>$value):
-setcookie($key,$value, time() + 365*24*3600, '/', 'Part8',false,true);
+setcookie($key,$value, time() + 365*24*3600, '/', 'part8',false,true);
 endforeach;
 ?>
 <!DOCTYPE html>
@@ -34,4 +34,4 @@ endforeach;
     </body>
 </html>
 
-    
+        
