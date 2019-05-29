@@ -6,7 +6,7 @@
     </head>
     <body>
         <?php
-        print_r($_COOKIE['gender']);
+        print_r($_COOKIE);
         ?>
     </body>
 </html>

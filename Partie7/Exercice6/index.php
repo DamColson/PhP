@@ -7,7 +7,7 @@
     <body><?php
         $form = $_POST;
         if(isset($form['lastName']) && isset($form['firstName']) && isset($form['gender'])):
-            session_start();
+
             foreach($form as $key=>$value):
             ?>
         <p><?= $key.' : '.$value ?></p>
