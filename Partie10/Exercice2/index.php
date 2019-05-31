@@ -11,10 +11,11 @@ endforeach;
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body><?php
-    $error = ['firstName'=>1,'lastName'=>1,'birthday'=>1,'address'=>1,'zip'=>1,'city'=>1,'mail'=>1,'phone'=>1,'peNumber'=>1,'codecademy'=>1];
-    $validate = ['firstName'=>0,'lastName'=>0,'birthday'=>0,'address'=>0,'zip'=>0,'city'=>0,'mail'=>0,'phone'=>0,'peNumber'=>0,'codecademy'=>0];
+    $error = ['firstName'=>1,'lastName'=>1,'age'=>1];
+    $validate = ['firstName'=>0,'lastName'=>0,'age'=>0];
         $form = $_POST;
-        array_map('strip_tags',$_POST);
+        $form = array_map('strip_tags',$form);
+        print_r($form);
         include '../../regex.php';
         ?>
         <form method="POST" class="bg-dark" action="index.php">
@@ -35,17 +36,17 @@ endforeach;
                 <div class="form-group col-md-2"></div>
                 <div class="form-group col-md-4">
                     <label for="firstName">Prénom : </label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Prénom" value="<?=$_POST['firstName']?>" required />
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Prénom" value="<?= ((isset($_POST['firstName']) && preg_match($regexFirstName,$_POST['firstName'])))?$_POST['firstName']:''; ?>" style="<?= ((isset($_POST['firstName']) && !preg_match($regexFirstName,$_POST['firstName'])))?'border : red solid 2px':''; ?>" required />
                 </div>
                 <div class="form-group col-md-4">
                     <label for="lastName">Nom : </label>
-                    <input type="text" class="form-control "id="lastName" name="lastName" placeholder="Nom" value="<?php if(isset($_POST['lastName']) && preg_match($regexLastName,$_POST['lastName'])):echo $_POST['lastName'];else:echo'';endif; ?>"  required />
+                    <input type="text" class="form-control "id="lastName" name="lastName" placeholder="Nom" value="<?= (isset($_POST['lastName']) && preg_match($regexLastName,$_POST['lastName']))?$_POST['lastName']:'';?>" style="<?= ((isset($_POST['lastName']) && !preg_match($regexLastName,$_POST['lastName'])))?'border : red solid 2px':''; ?>" required />
                 </div>
                 <div class="form-group col-md-2"></div>
                 <div class="form-group col-md-2"></div>
                 <div class="form-group col-md-4">
                     <label for="age">Age : </label>
-                    <input type="text" class="form-control" id="age" name="age" value="<?=$_POST['age']?>" required />
+                    <input type="text" class="form-control" id="age" name="age" placeholder="Age de 16 à 123" value="<?= ((isset($_POST['age']) && preg_match($regexAge,$_POST['age'])))?$_POST['age']:''; ?>" style="<?= ((isset($_POST['age']) && !preg_match($regexAge,$_POST['age'])))?'border : red solid 2px':''; ?>" required />
                 </div>
                 <div class="form-group col-md-4">
                     <label for="Society">Société : </label>
@@ -60,63 +61,28 @@ endforeach;
         </form>
         
         <?php
-                if(count($form)>0):           
+        if(count($form)>0):           
             if(preg_match($regexFirstName,$form['firstName'])):
                 $error['firstName'] = 0;
-                else:
+            else:
                 echo 'Prénom invalide '; 
             endif;
-//            if(preg_match($regexLastName,$form['lastName'])): 
-//                $error['lastName'] = 0;
-//                else:
-//                echo 'Nom invalide ';
-//            endif;
-//            if(preg_match_all($regexBirthday,$form['birthday'])):
-//                $error['birthday'] = 0;
-//                else:
-//                echo 'date de naissance invalide ';
-//            endif;
-//            if(preg_match($regexAddress,$form['address'])):
-//                $error['address'] = 0;
-//                else:
-//                echo 'Adresse invalide ';
-//            endif;
-//            if(preg_match($regexPostal,$form['zip'])):
-//                $error['zip'] = 0;
-//                else:
-//                echo 'Code postal invalide ';
-//            endif;
-//            if(preg_match($regexCity,$form['city'])):
-//                $error['city'] = 0;
-//                else:
-//                echo 'Ville invalide ';
-//            endif;
-//            if(preg_match($regexMail,$form['mail'])):
-//                $error['mail'] = 0;
-//                else:
-//                echo 'Mail invalide ';
-//            endif;
-//            if(preg_match($regexPhone,$form['phone'])):
-//                $error['phone'] = 0;
-//                else:
-//                echo 'Numéro de téléphone invalide ';
-//            endif;
-//            if(preg_match($regexPeNumber,$form['peNumber'])):
-//                $error['peNumber'] = 0;
-//                else:
-//                echo 'Numéro pole emploi invalide ';
-//            endif;
-//            if(preg_match($regexCodecademy,$form['codecademy'])):
-//                $error['codecademy'] = 0;
-//                else:
-//                echo 'Lien codecademy invalide ';
-//            endif;
-//            if($error == $validate):
+            if(preg_match($regexLastName,$form['lastName'])): 
+                $error['lastName'] = 0;
+            else:
+                echo 'Nom invalide ';
+            endif;
+            if(preg_match($regexAge,$form['age'])):
+                $error['age'] = 0;
+            else:
+                echo 'Age invalide';
+            endif;
+            if($error == $validate):
                 foreach($form as $key=>$value):
-                  ?><p><?=strip_tags($key).' : '.strip_tags($value);?></p>
+                  ?><p><?= ($key).' : '.($value);?></p>
                  <?php
                 endforeach;   
-//            endif;
+            endif;
         else:
             echo 'Veuillez remplir le formulaire en entier';
         endif;
